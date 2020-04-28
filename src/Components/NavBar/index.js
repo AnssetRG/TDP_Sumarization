@@ -1,39 +1,51 @@
-import React from 'react'
-import logo from '../../images/upc.png'
-import './index.css'
+import React from "react";
+import logo from "../../images/upc.png";
+import "./index.css";
 
-import { NavLink } from 'react-router-dom'
+import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
-    let navLinks = React.createRef();
+  let navLinks = React.createRef();
 
-    function handleClick () {
-        let navLinksElement = navLinks.current;
-        let links = navLinksElement.querySelectorAll('li');
+  function handleClick() {
+    let navLinksElement = navLinks.current;
+    let links = navLinksElement.querySelectorAll("li");
 
-        navLinksElement.classList.toggle("open")
-        links.forEach( link => link.classList.toggle("fade"));
-    }
+    navLinksElement.classList.toggle("open");
+    links.forEach((link) => link.classList.toggle("fade"));
+  }
 
-    return (
-        <nav>
-            <div className="logo">
-                <img src={logo} alt="logito_upc" height="48px"/>
-                <span>UPC</span>
-            </div>
-            <div className="hamburger" onClick={handleClick}>
-                <div className="line"></div>
-                <div className="line"></div>
-                <div className="line"></div>
-            </div>
-            <ul className="nav-links" ref={navLinks}>
-                <li><NavLink to="/home">Inicio</NavLink></li>
-                <li><NavLink to="/search">Buscar</NavLink></li>
-                <li><NavLink to="/record">Grabar</NavLink></li>
-                <li><NavLink to="/upload">Subir</NavLink></li>
-            </ul>
-        </nav>
-    )
-}
+  return (
+    <nav>
+      <div className="logo">
+        <li>
+          <NavLink to="/home">
+            <img src={logo} alt="logito_upc" height="48px" />
+          </NavLink>
+          <span>UPC</span>
+        </li>
+      </div>
+      <div className="hamburger" onClick={handleClick}>
+        <div className="line"></div>
+        <div className="line"></div>
+        <div className="line"></div>
+      </div>
+      <ul className="nav-links" ref={navLinks}>
+        <li>
+          <NavLink to="/home">Inicio</NavLink>
+        </li>
+        <li>
+          <NavLink to="/search">Buscar</NavLink>
+        </li>
+        <li>
+          <NavLink to="/record">Grabar</NavLink>
+        </li>
+        <li>
+          <NavLink to="/upload">Subir</NavLink>
+        </li>
+      </ul>
+    </nav>
+  );
+};
 
 export default NavBar;
