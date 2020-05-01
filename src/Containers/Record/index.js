@@ -10,6 +10,7 @@ const Home = () => {
   let [recording, setRecording] = useState(false);
   const rendering = null;
   let REC_icon = createRef();
+  let state = 0;
 
   const constraintObj = {
     audio: false,
@@ -29,7 +30,7 @@ const Home = () => {
   }
 
   function format() {
-    return recording ? "GRABANDO" : "Grabación";
+    return recording ? "REC" : "";
     //<p>{format()}</p>
   }
 
@@ -65,18 +66,32 @@ const Home = () => {
       .catch((err) => console.error(err));
   }
   function onClickStart() {
-    mediaRecorder.start();
+    if (state == 0) {
+      mediaRecorder.start();
+      state = 1;
+    } else {
+      alert("Está grabando actualmente.");
+    }
+
     //changeStateREC(true);
   }
   function onClickStop() {
     if (mediaRecorder.state === "recording") {
       mediaRecorder.stop();
+      state = 2;
       //changeStateREC(false);
     } else {
       alert('Presionar el boton "Grabar" primero.');
     }
   }
   function onClickDownload() {
+    if (state == 0) {
+      alert('Presionar el boton "Grabar" primero.');
+      return;
+    } else if (state == 1) {
+      alert('En grabación. Presionar el botón "Grabar" primero');
+      return;
+    }
     var a = document.createElement("a");
     document.body.appendChild(a);
     a.style = "display: none";
@@ -91,7 +106,9 @@ const Home = () => {
   });
   return (
     <div className="record">
-      <span className="record__title">Grabación</span>
+      <span className="record__title">
+        Grabación<span> {format()}</span>
+      </span>
       <video className="record__video-player" ref={videoTag} autoPlay />
       <div className="record__controls">
         <button onClick={onClickStart}>Grabar</button>
